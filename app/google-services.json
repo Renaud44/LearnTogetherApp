@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "717033987968",
+    "project_id": "learntogetherapp-9c8ad",
+    "storage_bucket": "learntogetherapp-9c8ad.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:717033987968:android:4db7e05c75a9730373eb65",
+        "android_client_info": {
+          "package_name": "com.android.projet"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAm8rGzX2_AgSKoyNPp3iym9904osU6-3c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

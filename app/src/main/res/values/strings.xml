@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">LearnTogether</string>
+    <string name="texte_souligne_se_connecter"><u>Se connecter</u></string>
+    <string name="navigation_drawer_open">Ouvrir le menu</string>
+    <string name="navigation_drawer_close">Fermer le menu</string>
+
+</resources>

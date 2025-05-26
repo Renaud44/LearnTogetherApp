@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Couleur quand le champ est focus -->
+    <item android:color="@color/colorBlack" android:state_focused="true"/>
+    <!-- Couleur quand le champ n'est pas focus (au repos) -->
+    <item android:color="@color/colorBlack"/>
+</selector>

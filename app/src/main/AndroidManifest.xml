@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@drawable/logo_application"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.PROJET"
+        tools:targetApi="31">
+        <activity
+            android:name=".revision_groupe.MembresGroupeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".revision_groupe.GroupChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".revision_groupe.ListeGroupesActivity"
+            android:exported="false"
+            android:parentActivityName=".revision_groupe.CreationGroupeActivity" />
+        <activity
+            android:name=".chats.ConversationsActivity"
+            android:exported="false"
+            android:parentActivityName=".HomeActivity" />
+        <activity
+            android:name=".notifications.NotificationsActivity"
+            android:exported="false"
+            android:parentActivityName=".HomeActivity" />
+        <activity
+            android:name=".chats.ChatActivity"
+            android:exported="false"
+            android:parentActivityName=".chats.ConversationsActivity" />
+        <activity
+            android:name=".match_etude.TrouverBinomeActivity"
+            android:exported="false"
+            android:parentActivityName=".match_etude.MatchEtudeActivity" />
+        <activity
+            android:name=".revision_groupe.CreationGroupeActivity"
+            android:exported="false"
+            android:parentActivityName=".revision_groupe.RevisionsGroupeActivity" />
+        <activity
+            android:name=".revision_groupe.RevisionsGroupeActivity"
+            android:exported="false"
+            android:parentActivityName=".HomeActivity" />
+        <activity
+            android:name=".match_etude.MatchEtudeActivity"
+            android:exported="false"
+            android:parentActivityName=".HomeActivity" />
+        <activity
+            android:name=".SplashScreenActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false"
+            android:label="Paramètres"
+            android:parentActivityName=".HomeActivity" />
+        <activity
+            android:name=".HomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ConnexionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".InscriptionActivity"
+            android:exported="false"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.PROJET" />
+    </application>
+
+</manifest>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_home"
+        android:title="Accueil"
+        android:icon="@drawable/ic_home"/>
+    <item
+        android:id="@+id/nav_settings"
+        android:title="Paramètres"
+        android:icon="@drawable/ic_settings_black"/>
+
+    <item
+        android:id="@+id/nav_match_etude"
+        android:title="Match d'étude"
+        android:icon="@drawable/ic_match_etude"/>
+    <item
+        android:id="@+id/nav_revision_groupe"
+        android:title="Révisions de groupe"
+        android:icon="@drawable/ic_forum"/>
+    <item
+        android:id="@+id/nav_quiz"
+        android:title="Quiz et défis"
+        android:icon="@drawable/ic_quiz"/>
+
+    <item
+        android:id="@+id/nav_progres"
+        android:title="Suivi des progrès"
+        android:icon="@drawable/ic_progres"/>
+    <item
+        android:id="@+id/nav_messages"
+        android:title="Messages"
+        android:icon="@drawable/ic_message"/>
+
+    <item
+        android:id="@+id/nav_notifications"
+        android:title="Notifications"
+        android:icon="@drawable/ic_notification"/>
+</menu>
