@@ -5,6 +5,7 @@ data class Groupe(
     var nom: String = "",
     var matiere: String = "",
     var description: String = "",
+    var adminId: String = "",
     var createur: String = "",
     var membres: List<String> = emptyList()
 )

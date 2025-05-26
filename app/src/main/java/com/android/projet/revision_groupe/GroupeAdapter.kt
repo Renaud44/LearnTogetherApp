@@ -22,6 +22,7 @@ class GroupeAdapter(
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val nomGroupe: TextView = view.findViewById(R.id.nom_groupe)
         val matiere: TextView = view.findViewById(R.id.matiere_groupe)
+        val description: TextView = view.findViewById(R.id.description_groupe)
         val btnSupprimer: Button = view.findViewById(R.id.btn_supprimer)
         val btnVoir: Button = view.findViewById(R.id.btn_voir)
         val btnMembres: Button = view.findViewById(R.id.btn_membres)
@@ -39,6 +40,8 @@ class GroupeAdapter(
         val groupe = groupes[position]
         holder.nomGroupe.text = groupe.nom
         holder.matiere.text = "Matière : ${groupe.matiere}"
+        holder.description.text = "Description : ${groupe.description}"
+
 
         holder.btnSupprimer.text = if (groupe.adminId == currentUserId) "Supprimer" else "Quitter"
 

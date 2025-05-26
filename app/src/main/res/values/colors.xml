@@ -10,4 +10,6 @@
     <color name="colorBouton">#E99138</color>
     <color name="colorLiens">#2891DC</color>
     <color name="error">#FF0000</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="dark_gray">#757575</color>
 </resources>
