@@ -7,14 +7,14 @@
     android:layout_marginTop="8dp"
     android:layout_marginHorizontal="12dp"
     app:cardElevation="4dp"
-    app:cardCornerRadius="10dp"
+    app:cardCornerRadius="5dp"
     android:background="@color/colorWhite">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="5dp">
+        android:padding="2dp">
 
         <TextView
             android:id="@+id/nom_groupe"
@@ -56,7 +56,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="Voir"
-                android:layout_marginEnd="2dp"
+                android:layout_marginEnd="5dp"
                 android:backgroundTint="@color/colorPrimary" />
 
             <Button
@@ -72,7 +72,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:layout_marginLeft="2dp"
+                android:layout_marginLeft="5dp"
                 android:text="Supprimer"
 
                 android:backgroundTint="@android:color/holo_red_dark" />

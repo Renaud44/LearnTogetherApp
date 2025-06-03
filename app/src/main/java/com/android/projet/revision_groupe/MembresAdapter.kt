@@ -7,10 +7,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.android.projet.R
 import com.android.projet.models.User
-import com.google.firebase.auth.FirebaseAuth
 
-class MembresAdapter(private val membres: List<User>) :
-    RecyclerView.Adapter<MembresAdapter.ViewHolder>() {
+class MembresAdapter(
+    private val membres: List<User>
+) : RecyclerView.Adapter<MembresAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val pseudo: TextView = view.findViewById(R.id.textPseudo)
@@ -18,20 +18,16 @@ class MembresAdapter(private val membres: List<User>) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
+        val v = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_membre_groupe, parent, false)
-        return ViewHolder(view)
+        return ViewHolder(v)
     }
 
-    override fun getItemCount() = membres.size
+    override fun getItemCount(): Int = membres.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val membre = membres[position]
-        holder.pseudo.text = membre.pseudo
-        holder.role.text = if (membre.uuid == FirebaseAuth.getInstance().currentUser?.uid) {
-            "(Moi)"
-        } else {
-            ""
-        }
+        val user = membres[position]
+        holder.pseudo.text = user.pseudo
+        holder.role.text = if (position == 0) "(Admin)" else "(Membre)"
     }
 }
