@@ -13,6 +13,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import com.android.projet.chats.ConversationsActivity
+import com.android.projet.defis.NouvelDefiInteractifActivity
 import com.android.projet.match_etude.MatchEtudeActivity
 import com.android.projet.notifications.NotificationsActivity
 import com.android.projet.revision_groupe.RevisionsGroupeActivity
@@ -29,6 +30,8 @@ class HomeActivity : AppCompatActivity() {
 
     private lateinit var btnMatchEtude: Button
     private lateinit var btnRevisionGroupe: Button
+    private lateinit var btnQuiz: Button
+
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var toggle: ActionBarDrawerToggle
 
@@ -46,6 +49,7 @@ class HomeActivity : AppCompatActivity() {
 
         btnMatchEtude = findViewById(R.id.button_matchEtude)
         btnRevisionGroupe = findViewById(R.id.button_revisionGroupe)
+        btnQuiz = findViewById(R.id.button_quiz)
         drawerLayout = findViewById(R.id.drawer_layout)
         val navigationView: NavigationView = findViewById(R.id.navigation_view)
         val headerView = navigationView.getHeaderView(0)
@@ -105,6 +109,9 @@ class HomeActivity : AppCompatActivity() {
                 R.id.nav_messages -> {
                     startActivity(Intent(this, ConversationsActivity::class.java))
                 }
+                R.id.nav_quiz -> {
+                    startActivity(Intent(this, NouvelDefiInteractifActivity::class.java))
+                }
             }
             drawerLayout.closeDrawers()
             true
@@ -117,6 +124,10 @@ class HomeActivity : AppCompatActivity() {
 
         btnRevisionGroupe.setOnClickListener {
             startActivity(Intent(this, RevisionsGroupeActivity::class.java))
+        }
+
+        btnQuiz.setOnClickListener{
+            startActivity(Intent(this, NouvelDefiInteractifActivity::class.java))
         }
 
         // Vérifier les badges

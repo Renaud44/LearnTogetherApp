@@ -12,9 +12,16 @@
         android:theme="@style/Theme.PROJET"
         tools:targetApi="31">
         <activity
+            android:name=".defis.DefiInteractifActivity"
+            android:exported="false" />
+        <activity
+            android:name=".defis.NouvelDefiInteractifActivity"
+            android:exported="false"
+            android:parentActivityName=".HomeActivity"/>
+        <activity
             android:name=".revision_groupe.MembresGroupeActivity"
             android:exported="false"
-            android:parentActivityName=".revision_groupe.ListeGroupesActivity"/>
+            android:parentActivityName=".revision_groupe.ListeGroupesActivity" />
         <activity
             android:name=".revision_groupe.GroupChatActivity"
             android:exported="false" />
