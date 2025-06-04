@@ -32,18 +32,23 @@ class NotificationsActivity : AppCompatActivity() {
             onAcceptBinome = { binome ->
                 val currentUid = auth.currentUser?.uid ?: return@NotificationAdapter
 
+                // Ajouter le binôme dans les deux sens
                 db.collection("users").document(currentUid)
                     .update("binomesAcceptes", FieldValue.arrayUnion(binome.uuid))
+
                 db.collection("users").document(binome.uuid)
                     .update("binomesAcceptes", FieldValue.arrayUnion(currentUid))
 
+                // Supprimer notification liée
                 supprimerNotificationsBinome(currentUid, binome.uuid)
 
                 Toast.makeText(this, "Binôme accepté", Toast.LENGTH_SHORT).show()
             },
             onRefuseBinome = { binome ->
                 val currentUid = auth.currentUser?.uid ?: return@NotificationAdapter
+
                 supprimerNotificationsBinome(currentUid, binome.uuid)
+
                 Toast.makeText(this, "Demande refusée", Toast.LENGTH_SHORT).show()
             }
         )
@@ -65,7 +70,7 @@ class NotificationsActivity : AppCompatActivity() {
                     val notif = doc.toObject(Notification::class.java)
                     notif.id = doc.id
 
-                    // Nettoyer les anciennes notifications déjà lues
+                    // Nettoyage auto des notifs déjà lues
                     if (notif.read == true) {
                         supprimerNotificationLue(notif.id)
                         continue
@@ -75,6 +80,28 @@ class NotificationsActivity : AppCompatActivity() {
                 }
 
                 adapter.notifyDataSetChanged()
+
+                // Marquer comme lues une fois affichées
+                marquerNotificationsCommeLues()
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Erreur lors du chargement", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun marquerNotificationsCommeLues() {
+        val uid = auth.currentUser?.uid ?: return
+
+        db.collection("notifications")
+            .whereEqualTo("to", uid)
+            .whereEqualTo("read", false)
+            .get()
+            .addOnSuccessListener { result ->
+                for (doc in result.documents) {
+                    db.collection("notifications")
+                        .document(doc.id)
+                        .update("read", true)
+                }
             }
     }
 

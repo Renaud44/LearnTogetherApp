@@ -1,6 +1,5 @@
 package com.android.projet
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -31,7 +30,6 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var btnMatchEtude: Button
     private lateinit var btnRevisionGroupe: Button
     private lateinit var btnQuiz: Button
-
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var toggle: ActionBarDrawerToggle
 
@@ -57,7 +55,6 @@ class HomeActivity : AppCompatActivity() {
         val profilImage = headerView.findViewById<ShapeableImageView>(R.id.profilImage)
         val pseudoTextView = headerView.findViewById<TextView>(R.id.pseudoTextView)
 
-        // Charger l'image depuis le fichier interne
         val imageFile = File(filesDir, "profile_image.jpg")
         if (imageFile.exists()) {
             Glide.with(this)
@@ -68,19 +65,14 @@ class HomeActivity : AppCompatActivity() {
                 .into(profilImage)
         }
 
-        // Charger le pseudo depuis Firestore
         currentUser?.let { user ->
             db.collection("users").document(user.uid).get()
                 .addOnSuccessListener { document ->
                     val pseudo = document.getString("pseudo") ?: "Utilisateur"
                     pseudoTextView.text = pseudo
                 }
-                .addOnFailureListener {
-                    Toast.makeText(this, "Erreur lors du chargement du profil", Toast.LENGTH_SHORT).show()
-                }
         }
 
-        // Drawer toggle
         toggle = ActionBarDrawerToggle(
             this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close
         )
@@ -88,36 +80,20 @@ class HomeActivity : AppCompatActivity() {
         toggle.syncState()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        // Navigation drawer menu
         navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.nav_home -> {
-                    Toast.makeText(this, "Accueil", Toast.LENGTH_SHORT).show()
-                }
-                R.id.nav_settings -> {
-                    startActivity(Intent(this, SettingsActivity::class.java))
-                }
-                R.id.nav_match_etude -> {
-                    startActivity(Intent(this, MatchEtudeActivity::class.java))
-                }
-                R.id.nav_revision_groupe -> {
-                    startActivity(Intent(this, RevisionsGroupeActivity::class.java))
-                }
-                R.id.nav_notifications -> {
-                    startActivity(Intent(this, NotificationsActivity::class.java))
-                }
-                R.id.nav_messages -> {
-                    startActivity(Intent(this, ConversationsActivity::class.java))
-                }
-                R.id.nav_quiz -> {
-                    startActivity(Intent(this, NouvelDefiInteractifActivity::class.java))
-                }
+                R.id.nav_home -> {}
+                R.id.nav_settings -> startActivity(Intent(this, SettingsActivity::class.java))
+                R.id.nav_match_etude -> startActivity(Intent(this, MatchEtudeActivity::class.java))
+                R.id.nav_revision_groupe -> startActivity(Intent(this, RevisionsGroupeActivity::class.java))
+                R.id.nav_notifications -> startActivity(Intent(this, NotificationsActivity::class.java))
+                R.id.nav_messages -> startActivity(Intent(this, ConversationsActivity::class.java))
+                R.id.nav_quiz -> startActivity(Intent(this, NouvelDefiInteractifActivity::class.java))
             }
             drawerLayout.closeDrawers()
             true
         }
 
-        // Boutons d'action
         btnMatchEtude.setOnClickListener {
             startActivity(Intent(this, MatchEtudeActivity::class.java))
         }
@@ -126,59 +102,50 @@ class HomeActivity : AppCompatActivity() {
             startActivity(Intent(this, RevisionsGroupeActivity::class.java))
         }
 
-        btnQuiz.setOnClickListener{
+        btnQuiz.setOnClickListener {
             startActivity(Intent(this, NouvelDefiInteractifActivity::class.java))
         }
 
-        // Vérifier les badges
-        checkForNotifications()
-        checkForUnreadMessages()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_home, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (toggle.onOptionsItemSelected(item)) return true
-
-        when (item.itemId) {
-            R.id.itemSettings -> {
-                startActivity(Intent(this, SettingsActivity::class.java))
-            }
-        }
-        return super.onOptionsItemSelected(item)
+        // Lancer badge check
+        checkForNotificationBadge()
     }
 
     private fun updateMenuBadge(menuItemId: Int, showBadge: Boolean) {
         val navigationView: NavigationView = findViewById(R.id.navigation_view)
         val menu = navigationView.menu
-        val menuItem = menu.findItem(menuItemId)
-        if (menuItem.actionView == null) {
-            menuItem.setActionView(R.layout.menu_item_with_badge)
+        val item = menu.findItem(menuItemId)
+
+        if (item.actionView == null) {
+            item.setActionView(R.layout.menu_item_with_badge)
         }
-        val badge = menuItem.actionView?.findViewById<TextView>(R.id.menu_badge)
+
+        val badge = item.actionView?.findViewById<TextView>(R.id.menu_badge)
         badge?.visibility = if (showBadge) View.VISIBLE else View.GONE
     }
 
-    private fun checkForNotifications() {
-        val currentUserId = currentUser?.uid ?: return
+    private fun checkForNotificationBadge() {
+        val uid = currentUser?.uid ?: return
+
         db.collection("notifications")
-            .whereEqualTo("userId", currentUserId)
+            .whereEqualTo("to", uid)
             .whereEqualTo("read", false)
             .get()
-            .addOnSuccessListener { documents ->
-                updateMenuBadge(R.id.nav_notifications, documents.documents.isNotEmpty())
+            .addOnSuccessListener { result ->
+                updateMenuBadge(R.id.nav_notifications, result.documents.isNotEmpty())
             }
     }
 
-    private fun checkForUnreadMessages() {
-        val currentUserId = currentUser?.uid ?: return
-        db.collection("users").document(currentUserId).get()
-            .addOnSuccessListener { snapshot ->
-                val conversations = snapshot["conversations"] as? Map<*, *>
-                updateMenuBadge(R.id.nav_messages, conversations?.isNotEmpty() == true)
-            }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_home, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (toggle.onOptionsItemSelected(item)) return true
+
+        if (item.itemId == R.id.itemSettings) {
+            startActivity(Intent(this, SettingsActivity::class.java))
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
